@@ -24,10 +24,10 @@
 
   <ItemGroup>
     <Reference Include="MgNetDotNetMySQLConnectManager">
-      <HintPath>..\..\..\..\Bitbucket\Meigetsu\Common\SupportLibraries\MySQLConnectManager\bin\Release\net5.0\MgNetDotNetMySQLConnectManager.dll</HintPath>
+      <HintPath>..\libs\MgNetDotNetMySQLConnectManager.dll</HintPath>
     </Reference>
     <Reference Include="MgNetDotNetMySQLDataManager">
-      <HintPath>..\..\..\..\Bitbucket\Meigetsu\Common\SupportLibraries\MySQLConnectManager\bin\Release\net5.0\MgNetDotNetMySQLDataManager.dll</HintPath>
+      <HintPath>..\libs\MgNetDotNetMySQLDataManager.dll</HintPath>
     </Reference>
   </ItemGroup>
 
