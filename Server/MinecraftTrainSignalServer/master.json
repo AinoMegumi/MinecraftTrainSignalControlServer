@@ -1,0 +1,5 @@
+{
+  "operation": "/root/operation.log",
+  "error": "/root/error.log",
+  "shutdownpassword": ""
+}
