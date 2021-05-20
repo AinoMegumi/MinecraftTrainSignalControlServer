@@ -10,9 +10,17 @@ namespace MinecraftTrainSignalServer.Controllers
     public class BaseController : ControllerBase
     {
         private readonly MasterConfig Master;
+        private static void CreateDirectory(string FileCreatePath)
+        {
+            if (Directory.GetDirectoryRoot(FileCreatePath) == FileCreatePath) return;
+            DirectoryInfo Dir = Directory.GetParent(FileCreatePath);
+            if (!Dir.Exists) Dir.Create();
+        }
         public BaseController()
         {
             Master = JsonConvert.DeserializeObject<MasterConfig>(System.IO.File.ReadAllText("./master.json"));
+            CreateDirectory(Master.ErrorLogPath);
+            CreateDirectory(Master.OperationLogPath);
         }
         protected string InternalServerError
         {
