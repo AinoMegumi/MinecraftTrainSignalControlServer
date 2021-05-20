@@ -119,7 +119,7 @@ namespace MinecraftTrainSignalServer.TrainRoute
     
         public void DeleteRoute()
         {
-            MySQL.Execute("DELETE FROM route WHERE ID=@routeid", new MySqlParameter("routeid", Route.RouteID));
+            MySQL.Execute("DELETE FROM routes WHERE ID=@routeid", new MySqlParameter("routeid", Route.RouteID));
             MySQL.Execute($"DROP TABLE IF EXISTS {Route.RouteID}");
         }
         public int GetCurrentReveal(string TrafficID) => Route.GetCurrentReveal(TrafficID);
