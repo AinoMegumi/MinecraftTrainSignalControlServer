@@ -19,7 +19,9 @@ namespace MinecraftTrainSignalServer.Controllers
             try
             {
                 using StreamReader sr = new StreamReader(Request.Body);
-                RequestBody.AddTrainRoute RouteInfo = JsonConvert.DeserializeObject<RequestBody.AddTrainRoute>(await sr.ReadToEndAsync());
+                string Body = await sr.ReadToEndAsync();
+                if (string.IsNullOrEmpty(Body)) throw HttpException.ClientError.BadRequest("Request Body is empty.");
+                RequestBody.AddTrainRoute RouteInfo = JsonConvert.DeserializeObject<RequestBody.AddTrainRoute>(Body);
                 using RouteInformationManager Route = new RouteInformationManager(RouteInfo, out List<string> TrafficIDs);
                 var json = new
                 {
@@ -84,7 +86,9 @@ namespace MinecraftTrainSignalServer.Controllers
                     if (Route.ProtectedPassword() && !Route.PasswordIsValid(GetPassword())) throw HttpException.ClientError.Unauthorized("Password is invalid");
                     using (StreamReader sr = new StreamReader(Request.Body))
                     {
-                        RequestBody.UpdateRouteInformation Info = JsonConvert.DeserializeObject<RequestBody.UpdateRouteInformation>(await sr.ReadToEndAsync());
+                        string Body = await sr.ReadToEndAsync();
+                        if (string.IsNullOrEmpty(Body)) throw HttpException.ClientError.BadRequest("Request Body is empty.");
+                        RequestBody.UpdateRouteInformation Info = JsonConvert.DeserializeObject<RequestBody.UpdateRouteInformation>(Body);
                         if (!string.IsNullOrEmpty(Info.NewPassword)) Route.ChangePassword(Info.NewPassword);
                         if (!string.IsNullOrEmpty(Info.NewRouteName)) Route.ChangeRouteName(Info.NewRouteName);
                     }
