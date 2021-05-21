@@ -14,7 +14,7 @@ namespace MinecraftTrainSignalServer.Controllers
     public class SignalManagementController : BaseController
     {
         [HttpPost]
-        public async Task<string> AddTrainRoute()
+        public async Task<ActionResult> AddTrainRoute()
         {
             try
             {
@@ -29,18 +29,18 @@ namespace MinecraftTrainSignalServer.Controllers
                     traffics = TrafficIDs
                 };
                 Response.StatusCode = 201;
-                return JsonConvert.SerializeObject(json);
+                return new JsonResult(json);
             }
             catch (HttpException hex)
             {
                 await WriteErrorLog(hex);
                 Response.StatusCode = hex.StatusCode;
-                return hex.Message;
+                return Content(hex.Message);
             }
             catch (Exception e)
             {
                 await WriteErrorLog(e);
-                return InternalServerError;
+                return new JsonResult(InternalServerError);
             }
             finally
             {
@@ -48,7 +48,7 @@ namespace MinecraftTrainSignalServer.Controllers
             }
         }
         [HttpGet("{routeid}")]
-        public async Task<string> GetTrainRouteInfoFromRouteID([FromRoute(Name = "routeid")] string RouteID)
+        public async Task<ActionResult> GetTrainRouteInfoFromRouteID([FromRoute(Name = "routeid")] string RouteID)
         {
             try
             {
@@ -58,18 +58,18 @@ namespace MinecraftTrainSignalServer.Controllers
                     name = Route.Name,
                     traffics = Route.GetTrafficIDs()
                 };
-                return JsonConvert.SerializeObject(json);
+                return new JsonResult(json);
             }
             catch (HttpException hex)
             {
                 await WriteErrorLog(hex);
                 Response.StatusCode = hex.StatusCode;
-                return hex.Message;
+                return Content(hex.Message, "text/plain");
             }
             catch (Exception e)
             {
                 await WriteErrorLog(e);
-                return InternalServerError;
+                return Content(InternalServerError, "text/plain");
             }
             finally
             {

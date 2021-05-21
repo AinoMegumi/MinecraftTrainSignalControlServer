@@ -38,7 +38,7 @@ namespace MinecraftTrainSignalServer.Controllers
         protected async Task WriteOperationLog()
         {
             using StreamWriter sr = new StreamWriter(new FileStream(Master.OperationLogPath, FileMode.Append, FileAccess.Write));
-            string LogMessage = $"{CurrentTime} {Request.Method} {Request.Path} : {ConnectedIPAddress}";
+            string LogMessage = $"{CurrentTime} {Request.Method} {Request.Path} {Response.StatusCode} : {ConnectedIPAddress}";
             await sr.WriteLineAsync(LogMessage);
         }
         protected async Task WriteErrorLog(Exception e)
