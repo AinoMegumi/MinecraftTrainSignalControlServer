@@ -197,7 +197,7 @@ namespace MinecraftTrainSignalServer.Controllers
                 await WriteOperationLog();
             }
         }
-        [HttpGet("{routeid}/{trafficid}")]
+        [HttpGet("{routeid}/{trafficid}/reveal")]
         public async Task<string> GetTrafficReveal([FromRoute(Name = "routeid")] string RouteID, [FromRoute(Name = "trafficid")] string TrafficID)
         {
             try
