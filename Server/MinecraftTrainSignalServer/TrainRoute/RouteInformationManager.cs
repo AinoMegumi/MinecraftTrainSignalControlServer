@@ -123,6 +123,7 @@ namespace MinecraftTrainSignalServer.TrainRoute
             MySQL.Execute($"DROP TABLE IF EXISTS {Route.RouteID}");
         }
         public int GetCurrentReveal(string TrafficID) => Route.GetCurrentReveal(TrafficID);
+        public int GetTrafficType(string TrafficID) => Route.GetTrafficType(TrafficID);
         public void DeleteTraffic(string TrafficID) => Route.DeleteTraffic(TrafficID);
         public void ChangePassword(string NewPassword) { Password = ToPasswordHash(NewPassword); }
         public void ChangeRouteName(string NewName) { Route.RouteName = NewName; }

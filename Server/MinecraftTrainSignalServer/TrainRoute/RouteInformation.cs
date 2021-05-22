@@ -103,6 +103,12 @@ namespace MinecraftTrainSignalServer.TrainRoute
             if (Index == -1) throw HttpException.ClientError.NotFound($"{TrafficID}: Traffic ID is invalid");
             return TrafficInformations[Index].SignalReveal;
         }
+        public int GetTrafficType(string TrafficID)
+        {
+            int Index = TrafficInformations.FindIndex(m => m.TrafficID == TrafficID);
+            if (Index == -1) throw HttpException.ClientError.NotFound($"{TrafficID}: Traffic ID is invalid");
+            return TrafficInformations[Index].TrafficTypeID;
+        }
         public void DeleteTraffic(string TrafficID)
         {
             int Index = TrafficInformations.FindIndex(m => m.TrafficID == TrafficID);

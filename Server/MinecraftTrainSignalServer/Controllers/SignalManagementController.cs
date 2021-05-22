@@ -221,6 +221,30 @@ namespace MinecraftTrainSignalServer.Controllers
                 await WriteOperationLog();
             }
         }
+        [HttpGet("{routeid}/{trafficid}/type")]
+        public async Task<string> GetTrafficType([FromRoute(Name = "routeid")] string RouteID, [FromRoute(Name = "trafficid")] string TrafficID)
+        {
+            try
+            {
+                using RouteInformationManager Route = new RouteInformationManager(RouteID);
+                return Route.GetTrafficType(TrafficID).ToString();
+            }
+            catch (HttpException hex)
+            {
+                await WriteErrorLog(hex);
+                Response.StatusCode = hex.StatusCode;
+                return hex.Message;
+            }
+            catch (Exception e)
+            {
+                await WriteErrorLog(e);
+                return InternalServerError;
+            }
+            finally
+            {
+                await WriteOperationLog();
+            }
+        }
         [HttpDelete("{routeid}/{trafficid}")]
         public async Task<string> DeleteTraffic([FromRoute(Name = "routeid")] string RouteID, [FromRoute(Name = "trafficid")] string TrafficID)
         {
