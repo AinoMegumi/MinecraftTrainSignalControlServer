@@ -42,6 +42,18 @@ namespace MinecraftTrainSignalServer.TrainRoute
                 TrafficInformations[i].CurrentSignalReveal = NewSignalManager.GetNewSignal(TrafficInformations[i].TrafficTypeID, TrafficInformations[i + 1].CurrentSignalReveal);
             }
         }
+        public void OpenReservedBlockage(string TargetTrafficID)
+        {
+            int Index = TrafficInformations.FindIndex(m => m.TrafficID == TargetTrafficID);
+            if (Index == -1) throw HttpException.ClientError.NotFound("Traffic ID is invalid");
+            if (Index == TrafficInformations.Count - 1) TrafficInformations[Index].CurrentSignalReveal = NewSignalManager.GetMaxSignal(TrafficInformations[Index].TrafficTypeID);
+            else TrafficInformations[Index].CurrentSignalReveal = NewSignalManager.GetNewSignal(TrafficInformations[Index].TrafficTypeID, TrafficInformations[Index + 1].CurrentSignalReveal);
+            for (int i = Index - 1; i >= 0; i--)
+            {
+                if (TrafficInformations[i].CurrentSignalReveal == SignalControl.Stop) break;
+                TrafficInformations[i].CurrentSignalReveal = NewSignalManager.GetNewSignal(TrafficInformations[i].TrafficTypeID, TrafficInformations[i + 1].CurrentSignalReveal);
+            }
+        }
         public List<string> GetTrafficIDs()
         {
             return TrafficInformations.Select(s => s.TrafficID).ToList();

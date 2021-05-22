@@ -111,12 +111,12 @@ namespace MinecraftTrainSignalServer.TrainRoute
         public bool ProtectedPassword() => Password.Length != 0;
         public bool PasswordIsValid(string RawPassword) => Password == ToPasswordHash(RawPassword);
         public void ChangeStopSignal(string TargetTrafficID) => Route.ChangeStopSignal(TargetTrafficID);
+        public void OpenReservedBlockage(string TargetTrafficID) => Route.OpenReservedBlockage(TargetTrafficID);
         public List<string> GetTrafficIDs() => Route.GetTrafficIDs();
         public string AddTraffic(string BeforeTraffic, int TrafficTypeID) => Route.AddTraffic(BeforeTraffic, TrafficTypeID);
         public void ChangeAllTrafficToStop() => Route.ChangeAllTrafficToStop();
         public void ResetAllTraffic() => Route.ResetAllTraffic();
         public void UpdateTrafficType(string TargetTraffic, int NewType) => Route.UpdateTrafficType(TargetTraffic, NewType);
-    
         public void DeleteRoute()
         {
             MySQL.Execute("DELETE FROM routes WHERE ID=@routeid", new MySqlParameter("routeid", Route.RouteID));
