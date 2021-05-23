@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
+using MinecraftTrainSignalServer.Response;
 
 namespace MinecraftTrainSignalServer.TrainRoute
 {
@@ -54,9 +55,9 @@ namespace MinecraftTrainSignalServer.TrainRoute
                 TrafficInformations[i].CurrentSignalReveal = NewSignalManager.GetNewSignal(TrafficInformations[i].TrafficTypeID, TrafficInformations[i + 1].CurrentSignalReveal);
             }
         }
-        public List<string> GetTrafficIDs()
+        public List<ResTrafficInformation> GetTrafficInformations()
         {
-            return TrafficInformations.Select(s => s.TrafficID).ToList();
+            return TrafficInformations.Select(s => new ResTrafficInformation { TrafficID = s.TrafficID, TrafficType = s.TrafficTypeID, Reveal = s.SignalReveal }).ToList();
         }
         public string AddTraffic(string BeforeTraffic, int TrafficTypeID)
         {

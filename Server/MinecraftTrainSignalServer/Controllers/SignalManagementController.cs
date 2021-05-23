@@ -56,7 +56,7 @@ namespace MinecraftTrainSignalServer.Controllers
                 var json = new
                 {
                     name = Route.Name,
-                    traffics = Route.GetTrafficIDs()
+                    traffics = Route.GetTrafficInformations()
                 };
                 return new JsonResult(json);
             }

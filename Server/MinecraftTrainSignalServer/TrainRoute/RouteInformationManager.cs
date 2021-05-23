@@ -1,5 +1,6 @@
 ﻿using Meigetsu.Net.Database;
 using MinecraftTrainSignalServer.ExpandException;
+using MinecraftTrainSignalServer.Response;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
@@ -112,7 +113,7 @@ namespace MinecraftTrainSignalServer.TrainRoute
         public bool PasswordIsValid(string RawPassword) => Password == ToPasswordHash(RawPassword);
         public void ChangeStopSignal(string TargetTrafficID) => Route.ChangeStopSignal(TargetTrafficID);
         public void OpenReservedBlockage(string TargetTrafficID) => Route.OpenReservedBlockage(TargetTrafficID);
-        public List<string> GetTrafficIDs() => Route.GetTrafficIDs();
+        public List<ResTrafficInformation> GetTrafficInformations() => Route.GetTrafficInformations();
         public string AddTraffic(string BeforeTraffic, int TrafficTypeID) => Route.AddTraffic(BeforeTraffic, TrafficTypeID);
         public void ChangeAllTrafficToStop() => Route.ChangeAllTrafficToStop();
         public void ResetAllTraffic() => Route.ResetAllTraffic();
