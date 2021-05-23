@@ -13,6 +13,9 @@ namespace MinecraftTrainSignalServer.Controllers
     [ApiController]
     public class SignalManagementController : BaseController
     {
+        [HttpGet("/")]
+        [HttpGet]
+        public IActionResult RedirectToConsole() => string.IsNullOrEmpty(Master.ManagementConsoleLocation) ? NotFound() : Redirect(Master.ManagementConsoleLocation);
         [HttpPost]
         public async Task<ActionResult> AddTrainRoute()
         {

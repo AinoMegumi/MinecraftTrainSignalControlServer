@@ -8,9 +8,11 @@ namespace MinecraftTrainSignalServer
 {
     public class MasterConfig
     {
-        [JsonProperty(PropertyName = "operation")]
+        [JsonProperty(PropertyName = "operation", Required = Required.Always)]
         public string OperationLogPath;
-        [JsonProperty(PropertyName = "error")]
+        [JsonProperty(PropertyName = "error", Required = Required.Always)]
         public string ErrorLogPath;
+        [JsonProperty(PropertyName = "console_location", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
+        public string ManagementConsoleLocation;
     }
 }

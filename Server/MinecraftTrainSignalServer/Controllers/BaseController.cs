@@ -9,7 +9,7 @@ namespace MinecraftTrainSignalServer.Controllers
 {
     public class BaseController : ControllerBase
     {
-        private readonly MasterConfig Master;
+        protected readonly MasterConfig Master;
         private static void CreateDirectory(string FileCreatePath)
         {
             if (Directory.GetDirectoryRoot(FileCreatePath) == FileCreatePath) return;
